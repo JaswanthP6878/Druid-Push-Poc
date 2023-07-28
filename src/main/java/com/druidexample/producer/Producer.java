@@ -43,15 +43,18 @@ public class Producer {
         Random random = new Random();
         ObjectMapper objectMapper = new ObjectMapper();
         for (int i = 0; i < nrMessages; i++) {
-            Record record = new Record();
-            record.setTime(new DateTime(DateTimeZone.UTC).toString());
-            record.setUrl(urls.get(random.nextInt(urls.size())));
-            record.setUser(users.get(random.nextInt(users.size())));
-            record.setLatencyMs(random.nextInt(100));
-            System.out.println(objectMapper.writeValueAsString(record));
+//            Record record = new Record();
+            TelemetryDataPoint tdp = new TelemetryDataPoint(random.nextInt(100));
+//            record.setTime(new DateTime(DateTimeZone.UTC).toString());
+//            record.setUrl(urls.get(random.nextInt(urls.size())));
+//            record.setUser(users.get(random.nextInt(users.size())));
+//            record.setLatencyMs(random.nextInt(100));
+            tdp.setTime(new DateTime(DateTimeZone.UTC).toString());
+            tdp.setPressureValue(random.nextDouble());
+            tdp.setTempValue(random.nextDouble());
+            System.out.println(objectMapper.writeValueAsString(tdp));
             // send to Kafka Produces
-            producer.send(new ProducerRecord("pageviews", objectMapper.writeValueAsString(record)));
-
+            producer.send(new ProducerRecord("test1", objectMapper.writeValueAsString(tdp)));
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
