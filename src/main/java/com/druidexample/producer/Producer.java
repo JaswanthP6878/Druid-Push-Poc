@@ -6,33 +6,18 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
-//import com.fasterxml.jackson.databind.ObjectMapper;
-public class Producer {
+public class Producer implements ProducerService {
     private KafkaProducer<String, String> producer;
-//    static List<String> users = new ArrayList<String>();
-//    static {
-//        users.add("alice");
-//        users.add("bob");
-//        users.add("mike");
-//        users.add("jhon");
-//    }
-//    private static List<String> urls = new ArrayList<String>();
-//    static {
-//        urls.add("/foo/bar");
-//        urls.add("/wikipedia");
-//        urls.add("/google");
-//        urls.add("/yahoo");
-//    }
+    
     private int nrMessages;
     public Producer(int nrMessages) throws IOException {
         Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.1.21:9092");
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
         producer = new KafkaProducer<String, String>(props);
@@ -48,7 +33,7 @@ public class Producer {
             tdp.setTempValue(random.nextDouble());
 //            System.out.println(objectMapper.writeValueAsString(tdp));
             System.out.println("data sent");
-            // send to Kafka Produces
+            // send to Kafka Queue
             producer.send(new ProducerRecord("test1", objectMapper.writeValueAsString(tdp)));
             try {
                 Thread.sleep(100);
