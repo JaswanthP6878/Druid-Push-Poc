@@ -16,8 +16,8 @@ Then run the DruidProducerMain.java file to populate the queue on the topic ment
 > **During Closing first close the Kafka Server, then the druid server**.
 
 
-### Druid Sercice SQL calls
-Sql Calls can be made to localhost:8888,
+### Druid Service SQL calls
+SQL Calls can be made to localhost:8888,
 
 ```json
 {
