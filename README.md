@@ -49,8 +49,5 @@ For Kafka to work, we need to change server.properties so that it accepts listen
 ```bash
 advertised.listeners = PLAINTEXT://192.168.1.21.9092
 ```
-> Here the IP address provided is of the machine that linux running the kafka and druid instance.
-
-
-
+> Here the IP address provided is of the linux machine running the kafka and druid instance.
 

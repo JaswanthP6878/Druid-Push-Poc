@@ -14,19 +14,19 @@ import java.util.Random;
 public class Producer implements ProducerService {
     private KafkaProducer<String, String> producer;
     
-    private int nrMessages;
-    public Producer(int nrMessages) throws IOException {
+//    private int nrMessages;
+    public Producer() throws IOException {
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.1.21:9092");
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
         producer = new KafkaProducer<String, String>(props);
-        this.nrMessages = nrMessages;
     }
-    public void sendMessages() throws JsonProcessingException {
+    public void run() {
+    	try {
         Random random = new Random();
         ObjectMapper objectMapper = new ObjectMapper();
-        for (int i = 0; i < nrMessages; i++) {
+        while (true) {
             TelemetryDataPoint tdp = new TelemetryDataPoint(random.nextInt(100));
             tdp.setTime(new DateTime(DateTimeZone.UTC).toString());
             tdp.setPressureValue(random.nextDouble());
@@ -35,15 +35,17 @@ public class Producer implements ProducerService {
             System.out.println("data sent");
             // send to Kafka Queue
             producer.send(new ProducerRecord("test1", objectMapper.writeValueAsString(tdp)));
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
-        producer.close();
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	} finally {
+    		producer.close();
+    	}
+ 
+        
     }
-}
+		
+	}
 
 
 
