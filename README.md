@@ -129,6 +129,8 @@ sbin/start-dfs.sh
 //3  inside the kafka folder.
 ./bin/kafka-server-start.sh config/server.properties
 ```
+
+> application in the current state is working and is able to use the hadoop DFS as its deep storage.
  
 
 
@@ -152,8 +154,6 @@ to get the list of all the places where java sdks are
 ```bash
 update-alternatives --list java
 ```
-
-
 
 
 

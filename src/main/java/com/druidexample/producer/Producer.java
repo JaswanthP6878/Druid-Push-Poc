@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 public class Producer implements ProducerService {
+	
     private KafkaProducer<String, String> producer;
     
     private DeviceRegistary dr;
@@ -38,7 +39,7 @@ public class Producer implements ProducerService {
             System.out.println("data sent");
             // send to Kafka Queue
             producer.send(new ProducerRecord<String, String>("test_hdfs", objectMapper.writeValueAsString(tdp)));
-//            Thread.sleep(100);
+//            Thread.sleep(100); // for limiting the rate at which data is sent...
         }
     	} catch (Exception e) {
     		e.printStackTrace();
