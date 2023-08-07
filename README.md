@@ -132,7 +132,26 @@ sbin/start-dfs.sh
 
 > application in the current state is working and is able to use the hadoop DFS as its deep storage.
  
+### Clustered Deployment
 
+* We copied the config files from the nano-quickstart in cluster config.
+*  all the files are same except the indexer/runtime.configuratio, which is not present in the nano-quickstart.
+*  made small changes to the indexer/runtime file, to decrease the amount of threads it takes to run.
+*  afterwards created 3 folders (by copying the entire apache-hadoop folder)
+	* DruidClusterProject,  where we run the master server.
+	* DruidClusterProject-data, where we run the data server.
+	* DruidClusterProject-query, where we run the query server.
+THe commands are
+
+```bash
+# for the master server in DruidClusterProject
+bin/start-cluster-master-with-zk-server
+# for the data server in the DruidClusterProject-data
+bin/start-cluster-data-server
+# for the query server in the DruidClusterProject-query
+bin/start-cluster-query-server
+```
+> The order matters so , first start master, then data and then query.
 
 ### Appendix- useful commands
 

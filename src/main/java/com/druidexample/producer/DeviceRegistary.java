@@ -3,8 +3,9 @@ package com.druidexample.producer;
 import java.util.ArrayList;
 
 public class DeviceRegistary {
-	
 	private ArrayList<Integer> DeviceIds;
+
+	// temp giving only the first and LastDeviceID;
 	
 	public DeviceRegistary(int firstDeviceId, int lastDeviceId) {
 		this.DeviceIds = new ArrayList<Integer>();
