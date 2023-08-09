@@ -136,13 +136,20 @@ sbin/start-dfs.sh
 
 * We copied the config files from the nano-quickstart in cluster config.
 *  all the files are same except the indexer/runtime.configuratio, which is not present in the nano-quickstart.
-*  made small changes to the indexer/runtime file, to decrease the amount of threads it takes to run.
-*  afterwards created 3 folders (by copying the entire apache-hadoop folder)
-	* DruidClusterProject,  where we run the master server.
-	* DruidClusterProject-data, where we run the data server.
-	* DruidClusterProject-query, where we run the query server.
-THe commands are
+start up for clustered development->
+* first start the hdfs server in ubuntu server
+	* sbin/start-dfs.sh \[from the hadoop folder in druid project]
+	
+* next start the master server, data server, query server
+	* bin/start-cluster-master-with-zk-server **in DuruidClusterProject inside 10.10.10.45**
+	
+	* bin/start-cluster-data-server **in DuruidClusterProject-Data inside 10.10.10.46**
+	
+	* bin/start-cluster-query-server  **in DuruidClusterProject-Data inside 10.10.10.47**
 
+* start the kafka broker,
+	* ./bin/kafka-server-start.sh config/server.properties **in 10.10.10.48, inside the kafka-2_13-3.5.0 folder** 
+		
 ```bash
 # for the master server in DruidClusterProject
 bin/start-cluster-master-with-zk-server

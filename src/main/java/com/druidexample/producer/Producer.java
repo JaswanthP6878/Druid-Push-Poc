@@ -19,7 +19,7 @@ public class Producer implements ProducerService {
 //    private int nrMessages;
     public Producer(DeviceRegistary dr) throws IOException {
         Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.1.21:9092");
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "10.10.10.48:9092");
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
         producer = new KafkaProducer<String, String>(props);
@@ -38,8 +38,8 @@ public class Producer implements ProducerService {
 //            System.out.println(objectMapper.writeValueAsString(tdp));
             System.out.println("data sent");
             // send to Kafka Queue
-            producer.send(new ProducerRecord<String, String>("test_hdfs", objectMapper.writeValueAsString(tdp)));
-//            Thread.sleep(100); // for limiting the rate at which data is sent...
+            producer.send(new ProducerRecord<String, String>("test1", objectMapper.writeValueAsString(tdp)));
+             // for limiting the rate at which data is sent...
         }
     	} catch (Exception e) {
     		e.printStackTrace();
